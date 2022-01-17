@@ -20,22 +20,6 @@ export class HeroService {
   ) { }
 
   /**
-   * 失敗したHttp操作を処理します。
-   * アプリを持続させます。
-   * @param operation - 失敗した操作の名前
-   * @param result - observableな結果として返す任意の値
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error)
-
-      this.log(`${operation} failed: ${error.message}`)
-
-      return of(result as T)
-    }
-  }
-
-  /**
    * getHeroes
    * @returns Observable<Hero[]>
    */
@@ -92,6 +76,22 @@ export class HeroService {
       tap(_=> this.log(`found heroes matching "${term}"`)),
       catchError(this.handleError<Hero[]>('searchHeros', []))
     )
+  }
+
+  /**
+   * 失敗したHttp操作を処理します。
+   * アプリを持続させます。
+   * @param operation - 失敗した操作の名前
+   * @param result - observableな結果として返す任意の値
+   */
+   private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error)
+
+      this.log(`${operation} failed: ${error.message}`)
+
+      return of(result as T)
+    }
   }
 
   /**
