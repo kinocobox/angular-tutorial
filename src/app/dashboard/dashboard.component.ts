@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroService } from '../hero.service';
 import { Hero } from '../hero';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getHeroes()
   }
 
   getHeroes(): void {
